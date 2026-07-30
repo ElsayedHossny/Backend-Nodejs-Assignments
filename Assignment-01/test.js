@@ -106,8 +106,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 11.Write a function that accepts multiple parameters (two or more) and returns their sum.
+
 // function sum(...x) {
-//   return x.reduce((sum, ele) => sum + ele);
+//   return x.reduce((sum, ele) => sum + ele, [0]);
 // }
 // console.log(sum(1, 2, 3, 4, 5));
 
