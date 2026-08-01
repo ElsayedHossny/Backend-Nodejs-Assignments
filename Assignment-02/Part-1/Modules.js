@@ -3,6 +3,8 @@ const fs = require("node:fs");
 const os = require("node:os");
 const { EventEmitter } = require("node:events");
 const emitter = new EventEmitter();
+const { pipeline } = require("node:stream");
+const zlib = require("node:zlib");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -149,16 +151,34 @@ const emitter = new EventEmitter();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 18. Use a readable stream to read a file in chunks and log each chunk. (0.5 Grade)
-// • Input Example: "./big.txt"
-// • Output Example: log each chunk
+
+// const readFile = fs.createReadStream("./File-Ex15.txt", { encoding: "utf8" });
+// readFile.on("data", (chunk) => {
+//   console.log(chunk);
+// console.log("log each chunk");
+// });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 19. Use readable and writable streams to copy content from one file to another. (0.5 Grade)
-// • Input Example: "./source.txt", "./dest.txt"
-// • Output Example: File copied using streams
+// const readFile = fs.createReadStream("./Read-Ex19.txt", { encoding: "utf8" });
+// const writeFile = fs.createWriteStream("./Writw-Ex19.txt", {
+//   encoding: "utf8",
+// });
+// pipeline(readFile, writeFile, (err) => {
+//   if (err) throw err;
+//   console.log("File copied using streams");
+// });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 20. Create a pipeline that reads a file, compresses it, and writes it to another file. (0.5 Grade)
-// • Input Example: "./data.txt", "./data.txt.gz"
+
+// const readStream = fs.createReadStream("./Read-Ex19.txt");
+// const gzip = zlib.createGzip();
+// const writeStream = fs.createWriteStream("./data.txt.gz");
+
+// pipeline(readStream, gzip, writeStream, (err) => {
+//   if (err) throw err;
+//   console.log("File compressed successfully!");
+// });
