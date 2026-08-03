@@ -24,10 +24,12 @@ http
       req.on("end", () => {
         const { name } = NewUser;
         const isUserExists = Users.find((user) => user.email === NewUser.email);
-        if (isUserExists)
+        if (isUserExists) {
+          res.writeHead(404, { "Content-Type": "application/utf8" });
           return res.end("User Already Exists please enter another email");
+        }
         let CreateUser = {
-          id: Users.length + 1,
+          id: (Users[Users.length - 1]?.id ?? 0) + 1,
           ...NewUser,
         };
 
@@ -40,7 +42,7 @@ http
       const Id = url.split("/")[2];
       const oldUser = Users.find((user) => user.id == Id);
       if (!oldUser) {
-        res.writeHead(404, { "Content-Type": "application/json" });
+        res.writeHead(404, { "Content-Type": "application/utf8" });
         console.log(`User is Not Found`);
         res.end(`User is Not Found `);
         return;
@@ -62,7 +64,7 @@ http
       const Id = url.split("/")[2];
       const deleteUser = Users.find((user) => user.id == Id);
       if (!deleteUser) {
-        res.writeHead(404, { "Content-Type": "application/json" });
+        res.writeHead(404, { "Content-Type": "application/utf8" });
         console.log(`User is Not Found`);
         res.end(`User is Not Found `);
         return;
