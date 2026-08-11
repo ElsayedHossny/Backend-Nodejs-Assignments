@@ -1,0 +1,7 @@
+Part1: Node Internals (3 Grades):
+1. What is the Node.js Event Loop? (0.5 Grade)
+2. What is Libuv and What Role Does It Play in Node.js? (0.5 Grade)
+3. How Does Node.js Handle Asynchronous Operations Under the Hood? (0.5 Grade)
+4. What is the Difference Between the Call Stack, Event Queue, and Event Loop in Node.js? (0.5 Grade)
+5. What is the Node.js Thread Pool and How to Set the Thread Pool Size? (0.5 Grade)
+6. How Does Node.js Handle Blocking and Non-Blocking Code Execution? (0.5 Grade)
