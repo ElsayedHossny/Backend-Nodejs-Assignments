@@ -1,0 +1,17 @@
+{
+  "name": "crud-express",
+  "version": "1.0.0",
+  "description": "The Crud Project By Express",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "start:Watch": "node --Watch .",
+    "dev": "nodemon ."
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

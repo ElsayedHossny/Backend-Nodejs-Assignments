@@ -1,8 +1,8 @@
-const { log } = require("node:console");
 const fs = require("node:fs");
 const http = require("node:http");
 const port = 3000;
 let Users = [];
+
 try {
   Users = JSON.parse(fs.readFileSync("./Data.json", "utf8"));
 } catch {
@@ -12,10 +12,13 @@ try {
 http
   .createServer((req, res) => {
     const { url, method } = req;
+    // Get All Users
     if ((url == "/users" || url == "/") && method == "GET") {
       res.setHeader("Content-Type", "application/json");
       res.end(` ${JSON.stringify(Users)}`);
-    } else if (url == "/adduser" && method == "POST") {
+    }
+    //Update User
+    else if (url == "/adduser" && method == "POST") {
       let NewUser;
       req.on("data", (chunk) => {
         NewUser = JSON.parse(chunk.toString());
@@ -32,13 +35,14 @@ http
           id: (Users[Users.length - 1]?.id ?? 0) + 1,
           ...NewUser,
         };
-
         Users.push(CreateUser);
         fs.writeFileSync("./Data.json", JSON.stringify(Users));
         console.log(`User ${name} added successfully`);
         res.end(`User ${name} added successfully`);
       });
-    } else if (url.startsWith("/user/") && method == "PATCH") {
+    }
+    // Add New Users
+    else if (url.startsWith("/user/") && method == "PATCH") {
       const Id = url.split("/")[2];
       const oldUser = Users.find((user) => user.id == Id);
       if (!oldUser) {
@@ -60,25 +64,29 @@ http
           res.end(`User ${name} Updated successfully`);
         });
       }
-    } else if (url.startsWith("/user/") && method == "DELETE") {
+    }
+    //  Delete User
+    else if (url.startsWith("/user/") && method == "DELETE") {
       const Id = url.split("/")[2];
       const deleteUser = Users.find((user) => user.id == Id);
+      const index = Users.findIndex((user) => user.id == Id);
+      console.log(index);
       if (!deleteUser) {
         res.writeHead(404, { "Content-Type": "application/utf8" });
         console.log(`User is Not Found`);
         res.end(`User is Not Found `);
         return;
       } else {
-        const index = Id - 1;
-        const deleteName = Users[index].name;
         if (index !== -1) {
           Users.splice(index, 1);
         }
         fs.writeFileSync("./Data.json", JSON.stringify(Users));
-        console.log(`User ${deleteName} is Deleted`);
-        res.end(`User ${deleteName} is Deleted `);
+        console.log(`User is Deleted`);
+        res.end(`User is Deleted`);
       }
-    } else if (url.startsWith("/user/") && method == "GET") {
+    }
+    //Get User BY ID
+    else if (url.startsWith("/user/") && method == "GET") {
       const Id = url.split("/")[2];
       const userShow = Users.find((user) => user.id == Id);
       if (!userShow) {
@@ -90,7 +98,9 @@ http
         console.log(userShow);
         res.end(`${JSON.stringify(userShow)}`);
       }
-    } else {
+    }
+    // If Api Not Correct
+    else {
       res.writeHead(404, { "Content-Type": "application/json" });
       console.log("Url OR Method Not Correct........");
       res.end("Url OR Method Not Correct........");
