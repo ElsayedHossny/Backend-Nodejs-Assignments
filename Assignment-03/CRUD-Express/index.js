@@ -43,22 +43,6 @@ app.post("/user", (req, res, next) => {
   res.status(404).json({ message: "User Email Is Already Exist" });
 });
 
-app.get("/user/filter", (req, res, next) => {
-  const minAge = Number(req.query.minAge);
-  const data = ReadFile();
-  const users = data.users;
-  const userFilteration = users.filter((user) => user.age > minAge);
-  if (userFilteration.length === 0) {
-    return res.status(404).json({
-      message: "User not found",
-    });
-  }
-  res.status(201).json({
-    message: "User Filtration depend on ages",
-    userFilteration,
-  });
-});
-
 app.get("/user/getByName", (req, res, next) => {
   const userName = req.query.name;
   const data = ReadFile();
@@ -118,7 +102,7 @@ app.patch("/user/:id", (req, res, next) => {
   });
 });
 
-app.get("/user/:id", (req, res, next) => {
+app.get("/users/:id", (req, res, next) => {
   const { id } = req.params;
   console.log(id);
   const data = ReadFile();
@@ -133,6 +117,22 @@ app.get("/user/:id", (req, res, next) => {
   res.status(201).json({
     message: "User retrieved successfully",
     userById,
+  });
+});
+
+app.get("/user/filter", (req, res, next) => {
+  const minAge = Number(req.query.minAge);
+  const data = ReadFile();
+  const users = data.users;
+  const userFilteration = users.filter((user) => user.age > minAge);
+  if (userFilteration.length === 0) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  }
+  res.status(201).json({
+    message: "User Filtration depend on ages",
+    userFilteration,
   });
 });
 
