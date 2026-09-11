@@ -107,4 +107,26 @@ booksRouter.get("/sorting-after-year", async (req, res, next) => {
   });
 });
 
+booksRouter.get("/group-after-year", async (req, res, next) => {
+  const { year } = req.query;
+
+  const result = await booksServices.findBooksAfterYearGroup(year);
+  res.status(200).json({
+    result,
+  });
+});
+booksRouter.get("/unwind-array", async (req, res, next) => {
+  const result = await booksServices.findBooksBySeparateArray();
+  res.status(200).json({
+    result,
+  });
+});
+
+booksRouter.get("/book-Join-Logs", async (req, res, next) => {
+  const result = await booksServices.bookJoinLogs();
+  res.status(200).json({
+    result,
+  });
+});
+
 export default booksRouter;

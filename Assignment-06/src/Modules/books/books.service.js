@@ -116,3 +116,61 @@ export const findBooksAfterYear = async (body) => {
     .toArray();
   return books;
 };
+
+export const findBooksAfterYearGroup = async (body) => {
+  const yearparam = Number(body);
+  const books = await booksCollection
+    .aggregate([
+      {
+        $match: {
+          year: {
+            $gte: yearparam,
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          title: 1,
+          author: 1,
+          year: 1,
+        },
+      },
+    ])
+    .toArray();
+  return books;
+};
+
+export const findBooksBySeparateArray = async () => {
+  const books = booksCollection
+    .aggregate([
+      {
+        $unwind: "$genres",
+      },
+      {
+        $project: {
+          _id: 0,
+          title: 1,
+          genres: 1,
+        },
+      },
+    ])
+    .toArray();
+  return books;
+};
+
+export const bookJoinLogs = async () => {
+  const books = await booksCollection
+    .aggregate([
+      {
+        $lookup: {
+          from: "logs",
+          localField: "_id",
+          foreignField: "book_id",
+          as: "logs",
+        },
+      },
+    ])
+    .toArray();
+  return books;
+};
