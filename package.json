@@ -1,0 +1,20 @@
+{
+  "name": "backend-nodejs-assignments",
+  "version": "1.0.0",
+  "description": "Backend-Nodejs-Assignments",
+  "homepage": "https://github.com/ElsayedHossny/Backend-Nodejs-Assignments#readme",
+  "bugs": {
+    "url": "https://github.com/ElsayedHossny/Backend-Nodejs-Assignments/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElsayedHossny/Backend-Nodejs-Assignments.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
